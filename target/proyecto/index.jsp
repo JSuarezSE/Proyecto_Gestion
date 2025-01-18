@@ -94,7 +94,7 @@
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required placeholder="Introduce tu correo electronico">
 
-        <label for="cedula">Cedula:</label>
+        <label for="cedula">Clave:</label>
         <input type="text" name="cedula" id="cedula" required placeholder="Introduce tu cedula">
 
         <button type="submit" name="accion" value="login">Iniciar Sesion</button>
@@ -130,18 +130,18 @@
 
                 // Redirigir dependiendo del rol
                 if (usuario.getIdRole() == 1) { // Rol de estudiante
-                    response.sendRedirect("dashboard_estudiante.jsp");
+                    response.sendRedirect("/estudiante/dashboard_estudiante.jsp");
                 } else if (usuario.getIdRole() == 2) { // Rol de docente
-                    response.sendRedirect("dashboard_docente.jsp");
+                    response.sendRedirect("/docente/dashboard_docente.jsp");
                 } else {
-                    out.println("<p style='color: red;'>Rol no reconocido.</p>");
+                    out.println("script>alert('Rol no reconocido.');</script>");
                 }
             } else {
-                out.println("<p style='color: red;'>Credenciales incorrectas. Inténtelo de nuevo.</p>");
+               out.println("<script>alert('Credenciales incorrectas. Inténtelo de nuevo.');</script>");
             }
         }
         } else {
-            out.println("<p style='color: red;'>No se pudo conectar a la base de datos.</p>");
+            out.println("<script>alert('No se pudo conectar a la base de datos.');</script>");
         }
     %>
 </body>

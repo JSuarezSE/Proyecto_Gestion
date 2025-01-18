@@ -150,7 +150,7 @@
                 boolean registroExitoso = usuarioDAO.registrarUsuario(nuevoUsuario);
 
                 if (registroExitoso) {
-                    out.println("<p style='color: green;'>Usuario registrado con éxito: " + nuevoUsuario.getNombre() + "</p>");
+                    out.println("<p style='color: green;'>Usuario registrado con exito: " + nuevoUsuario.getNombre() + "</p>");
                 } else {
                     out.println("<p style='color: red;'>Error al registrar el usuario.</p>");
                 }
