@@ -1,9 +1,8 @@
-<%@ page import="controlador.Conexion" %> 
-<%@ page import="controlador.DocenteDAO" %> 
-<%@ page import="modelo.Usuario" %> 
-<%@ page import="java.sql.Connection" %> 
-<%@ page import="java.util.List" %> 
-
+<%@ page import="controlador.Conexion" %>
+<%@ page import="controlador.DocenteDAO" %>
+<%@ page import="modelo.Usuario" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,11 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Asistencia - Docente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Incluyendo jQuery y jQuery UI para el Datepicker -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -163,18 +157,6 @@
             </table>
 
             <div style="text-align: center; margin-top: 20px;">
-                <label for="fecha_asistencia">Fecha de Asistencia:</label>
-                <input type="text" id="fecha_asistencia" name="fecha_asistencia" required>
-                <script>
-                    $(document).ready(function() {
-                        // Inicializar el DatePicker
-                        $("#fecha_asistencia").datepicker({
-                            dateFormat: 'yy-mm-dd', // Formato de fecha: YYYY-MM-DD
-                            changeMonth: true,
-                            changeYear: true
-                        });
-                    });
-                </script>
                 <button type="submit" class="btn" name="accion" value="registrarAsistencia">Registrar Asistencia</button>
             </div>
         </form>

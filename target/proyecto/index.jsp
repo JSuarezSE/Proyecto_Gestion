@@ -130,9 +130,9 @@
 
                 // Redirigir dependiendo del rol
                 if (usuario.getIdRole() == 1) { // Rol de estudiante
-                    response.sendRedirect("/estudiante/dashboard_estudiante.jsp");
+                    response.sendRedirect("estudiante/dashboard_estudiante.jsp");
                 } else if (usuario.getIdRole() == 2) { // Rol de docente
-                    response.sendRedirect("/docente/dashboard_docente.jsp");
+                    response.sendRedirect("docente/dashboard_docente.jsp");
                 } else {
                     out.println("script>alert('Rol no reconocido.');</script>");
                 }

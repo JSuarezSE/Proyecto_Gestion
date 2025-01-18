@@ -1,3 +1,5 @@
-controlador\UsuarioDAO.class
+modelo\Asistencia.class
 controlador\Conexion.class
+controlador\DocenteDAO.class
+controlador\UsuarioDAO.class
 modelo\Usuario.class
