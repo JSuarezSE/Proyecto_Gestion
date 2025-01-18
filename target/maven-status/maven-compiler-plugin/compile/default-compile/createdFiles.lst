@@ -1,1 +1,3 @@
+controlador\UsuarioDAO.class
 controlador\Conexion.class
+modelo\Usuario.class
