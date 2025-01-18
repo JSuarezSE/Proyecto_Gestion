@@ -94,13 +94,13 @@
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required placeholder="Introduce tu correo electronico">
 
-        <label for="cedula">Cedula:</label>
+        <label for="cedula">Clave:</label>
         <input type="text" name="cedula" id="cedula" required placeholder="Introduce tu cedula">
 
         <button type="submit" name="accion" value="login">Iniciar Sesion</button>
 
         <div class="footer">
-            <p> ¿No tienes cuenta? <a href="#">Registrarse</a></p>
+            <p> ¿No tienes cuenta? <a href="registro.jsp">Registrarse</a></p>
         </div>
     </form>
 </div>

@@ -100,7 +100,7 @@
         <button type="submit" name="accion" value="login">Iniciar Sesion</button>
 
         <div class="footer">
-            <p> ¿No tienes cuenta? <a href="#">Registrarse</a></p>
+            <p> ¿No tienes cuenta? <a href="registro.jsp">Registrarse</a></p>
         </div>
     </form>
 </div>
