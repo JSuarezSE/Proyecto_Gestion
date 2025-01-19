@@ -14,12 +14,11 @@ public class DocenteDAO {
         this.conexion = conexion;
     }
 
-    // Obtener los estudiantes de un curso específico
     public List<Usuario> obtenerEstudiantesPorCurso(int idCurso) {
         List<Usuario> estudiantes = new ArrayList<>();
         String sql = "SELECT u.id_usuario, u.nombre, u.apellido, u.email FROM usuarios u " +
                      "JOIN estudiantes_cursos ec ON u.id_usuario = ec.id_usuario " +
-                     "WHERE ec.id_curso = ?";
+                     "WHERE ec.id_curso = ? AND u.id_role = 1"; // Filtra solo estudiantes
     
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setInt(1, idCurso);

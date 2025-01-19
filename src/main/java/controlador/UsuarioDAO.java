@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UsuarioDAO {
     private Connection conexion;
@@ -15,15 +16,39 @@ public class UsuarioDAO {
 
     // Método para registrar un nuevo usuario con rol
     public boolean registrarUsuario(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (nombre, apellido, email, cedula, telefono, id_role) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-            stmt.setString(1, usuario.getNombre());
-            stmt.setString(2, usuario.getApellido());
-            stmt.setString(3, usuario.getEmail());
-            stmt.setString(4, usuario.getCedula());
-            stmt.setString(5, usuario.getTelefono());
-            stmt.setInt(6, usuario.getIdRole()); // Asignar el rol correctamente
-            return stmt.executeUpdate() > 0;
+        String sqlUsuario = "INSERT INTO usuarios (nombre, apellido, email, cedula, telefono, id_role) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlEstudianteCurso = "INSERT INTO estudiantes_cursos (id_usuario, id_curso) VALUES (?, ?)";
+    
+        try (PreparedStatement stmtUsuario = conexion.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtEstudianteCurso = conexion.prepareStatement(sqlEstudianteCurso)) {
+    
+            // Insertar el usuario en la tabla usuarios
+            stmtUsuario.setString(1, usuario.getNombre());
+            stmtUsuario.setString(2, usuario.getApellido());
+            stmtUsuario.setString(3, usuario.getEmail());
+            stmtUsuario.setString(4, usuario.getCedula());
+            stmtUsuario.setString(5, usuario.getTelefono());
+            stmtUsuario.setInt(6, usuario.getIdRole());
+    
+            int filasAfectadas = stmtUsuario.executeUpdate();
+    
+            if (filasAfectadas > 0) {
+                // Obtener el ID generado para el usuario recién insertado
+                ResultSet generatedKeys = stmtUsuario.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int idUsuario = generatedKeys.getInt(1);
+    
+                    // Solo asignar curso si el usuario es un estudiante (id_role = 1)
+                    if (usuario.getIdRole() == 1) {
+                        stmtEstudianteCurso.setInt(1, idUsuario);
+                        stmtEstudianteCurso.setInt(2, 1); // Asignar el id_curso = 1
+                        stmtEstudianteCurso.executeUpdate();
+                    }
+    
+                    return true;
+                }
+            }
+            return false;
         } catch (SQLException e) {
             System.out.println("Error al registrar el usuario: " + e.getMessage());
             return false;
