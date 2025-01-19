@@ -1,3 +1,4 @@
 controlador\ConexionTest.class
 controlador\DocenteDAOTest.class
 controlador\UsuarioDAOTest.class
+controlador\EstudianteDAOTest.class

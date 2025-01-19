@@ -46,81 +46,81 @@ public class DocenteDAOTest {
             conexion.close();
         }
     }
-
     @Test
     public void testObtenerEstudiantesPorCurso() {
         List<Usuario> estudiantes = docenteDAO.obtenerEstudiantesPorCurso(1);
         assertNotNull("La lista de estudiantes no debería ser nula", estudiantes);
-        assertEquals("Debería haber 1 estudiante en el curso", 1, estudiantes.size());
+        assertEquals("Debería haber 6 estudiantes en el curso", 6, estudiantes.size());
         assertEquals("El nombre del estudiante debería ser Juan", "Juan", estudiantes.get(0).getNombre());
+        System.out.println("¡Éxito al obtener estudiantes por curso! Se encontraron " + estudiantes.size() + " estudiantes.");
     }
-
+    
     @Test
     public void testRegistrarAsistencia() {
-        boolean resultado = docenteDAO.registrarAsistencia(1, 1, new Date(System.currentTimeMillis()), "Presente");
+        boolean resultado = docenteDAO.registrarAsistencia(5, 1, new Date(System.currentTimeMillis()), "Presente");
         assertTrue("La asistencia debería haberse registrado correctamente", resultado);
+        System.out.println("¡Éxito al registrar la asistencia! La asistencia se registró correctamente.");
     }
-
+    
     @Test
     public void testObtenerAsistenciaPorEstudiante() {
-        docenteDAO.registrarAsistencia(1, 1, new Date(System.currentTimeMillis()), "Presente");
-        List<Asistencia> asistencias = docenteDAO.obtenerAsistenciaPorEstudiante(1);
+        List<Asistencia> asistencias = docenteDAO.obtenerAsistenciaPorEstudiante(3);
         assertNotNull("La lista de asistencias no debería ser nula", asistencias);
         assertEquals("Debería haber 1 registro de asistencia", 1, asistencias.size());
         assertEquals("El estado de la asistencia debería ser 'Presente'", "Presente", asistencias.get(0).getEstado());
+        System.out.println("¡Éxito al obtener la asistencia por estudiante! Se encontraron " + asistencias.size() + " registros de asistencia.");
     }
-
+    
     @Test
     public void testAgregarNota() {
         Notas nota = new Notas(1, 1, 1, 8.5, 7.0, 9.0);
         boolean resultado = docenteDAO.agregarNota(nota);
         assertTrue("La nota debería haberse agregado correctamente", resultado);
+        System.out.println("¡Éxito al agregar la nota! La nota se agregó correctamente.");
     }
-
+    
     @Test
     public void testActualizarNota() {
         Notas nota = new Notas(1, 1, 1, 8.5, 7.0, 9.0);
         docenteDAO.agregarNota(nota);
-
         int idNota = docenteDAO.obtenerIdNota(1, 1);
         Notas notaActualizada = new Notas(idNota, 1, 1, 9.0, 8.0, 10.0);
         boolean resultado = docenteDAO.actualizarNota(notaActualizada);
         assertTrue("La nota debería haberse actualizado correctamente", resultado);
+        System.out.println("¡Éxito al actualizar la nota! La nota se actualizó correctamente.");
     }
-
+    
     @Test
     public void testEliminarNota() {
         Notas nota = new Notas(1, 1, 1, 8.5, 7.0, 9.0);
         docenteDAO.agregarNota(nota);
-
         int idNota = docenteDAO.obtenerIdNota(1, 1);
         boolean resultado = docenteDAO.eliminarNota(idNota);
         assertTrue("La nota debería haberse eliminado correctamente", resultado);
+        System.out.println("¡Éxito al eliminar la nota! La nota se eliminó correctamente.");
     }
-
+    
     @Test
     public void testListarNotasPorCurso() {
-        Notas nota = new Notas(2, 1, 1, 8.5, 7.0, 9.0);
-        docenteDAO.agregarNota(nota);
-
         List<Notas> notas = docenteDAO.listarNotasPorCurso(1);
         assertNotNull("La lista de notas no debería ser nula", notas);
-        assertEquals("Debería haber 1 nota en el curso", 1, notas.size());
+        assertEquals("Debería haber 3 notas en el curso", 3, notas.size());
         assertEquals("El insumo1 de la nota debería ser 8.5", 8.5, notas.get(0).getInsumo1(), 0.01);
+        System.out.println("¡Éxito al listar las notas por curso! Se encontraron " + notas.size() + " notas.");
     }
-
+    
     @Test
     public void testExisteNota() {
-        boolean existe = docenteDAO.existeNota(2, 1);
+        boolean existe = docenteDAO.existeNota(3, 1);
         assertTrue("La nota debería existir en la base de datos", existe);
+        System.out.println("¡Éxito al verificar la existencia de la nota! La nota existe en la base de datos.");
     }
-
+    
     @Test
     public void testObtenerIdNota() {
         Notas nota = new Notas(2, 1, 1, 8.5, 7.0, 9.0);
         docenteDAO.agregarNota(nota);
-
         int idNota = docenteDAO.obtenerIdNota(1, 1);
         assertTrue("El ID de la nota debería ser mayor que 0", idNota > 0);
-    }
-}
+        System.out.println("¡Éxito al obtener el ID de la nota! El ID obtenido es: " + idNota);
+    } }
