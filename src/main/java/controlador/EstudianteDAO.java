@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Asistencia;
+import modelo.Notas;
 
 public class EstudianteDAO {
 
@@ -46,4 +47,29 @@ public class EstudianteDAO {
       
       return asistencias;
   }
+  public List<Notas> obtenerNotasPorEstudiante(int idUsuario) {
+    List<Notas> notas = new ArrayList<>();
+    String sql = "SELECT id_nota, id_curso, insumo1, insumo2, insumo3, total FROM notas WHERE id_usuario = ?";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setInt(1, idUsuario);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Notas nota = new Notas(
+                rs.getInt("id_nota"),
+                idUsuario,
+                rs.getInt("id_curso"),
+                rs.getDouble("insumo1"),
+                rs.getDouble("insumo2"),
+                rs.getDouble("insumo3")
+            );
+            notas.add(nota);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return notas;
+}
 }

@@ -1,5 +1,5 @@
 <%@ page import="controlador.Conexion" %>
-<%@ page import="controlador.EstudianteDAO" %>  <!-- Importar EstudianteDAO -->
+<%@ page import="controlador.EstudianteDAO" %>  <
 <%@ page import="modelo.Asistencia" %>
 <%@ page import="modelo.Usuario" %>
 <%@ page import="java.sql.Connection" %>
@@ -81,7 +81,7 @@
             if (usuario == null) {
                 response.sendRedirect("../index.jsp"); // Redirigir al login si no hay usuario
             }
-          out.println("ID del usuario: " + usuario.getIdUsuario());
+          
             // Obtener las asistencias del estudiante
             Conexion conexionDB = new Conexion();
             Connection conexion = conexionDB.conectar();

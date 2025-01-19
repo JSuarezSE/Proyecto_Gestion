@@ -1,17 +1,16 @@
 <%@ page import="controlador.Conexion" %>
-<%@ page import="controlador.EstudianteDAO" %>  <
-<%@ page import="modelo.Asistencia" %>
+<%@ page import="controlador.EstudianteDAO" %>
+<%@ page import="modelo.Notas" %>
 <%@ page import="modelo.Usuario" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Asistencias</title>
+    <title>Mis Calificaciones</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -81,47 +80,48 @@
             if (usuario == null) {
                 response.sendRedirect("../index.jsp"); // Redirigir al login si no hay usuario
             }
-          out.println("ID del usuario: " + usuario.getIdUsuario());
-            // Obtener las asistencias del estudiante
+
+            // Obtener las notas del estudiante
             Conexion conexionDB = new Conexion();
             Connection conexion = conexionDB.conectar();
-            List<Asistencia> asistencias = new ArrayList<Asistencia>();  // Usar List en lugar de ArrayList
+            List<Notas> notas = new ArrayList<>();
 
             if (conexion != null) {
-                EstudianteDAO estudianteDAO = new EstudianteDAO(conexion);  // Usar EstudianteDAO
-                asistencias = estudianteDAO.obtenerAsistenciasPorEstudiante(usuario.getIdUsuario());  
-                
+                EstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
+                notas = estudianteDAO.obtenerNotasPorEstudiante(usuario.getIdUsuario());
             }
         %>
 
-        <h1>Mis Asistencias</h1>
+        <h1>Mis Calificaciones</h1>
 
         <table>
             <thead>
                 <tr>
-                    <th>Fecha</th>
                     <th>Curso</th>
-                    <th>Estado</th>
+                    <th>Insumo 1</th>
+                    <th>Insumo 2</th>
+                    <th>Insumo 3</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    if (asistencias.isEmpty()) {
-                        out.println("<tr><td colspan='3'>No hay asistencias registradas.</td></tr>");
+                    if (notas.isEmpty()) {
+                        out.println("<tr><td colspan='5'>No hay calificaciones registradas.</td></tr>");
                     } else {
-                        for (Asistencia asistencia : asistencias) {
+                        for (Notas nota : notas) {
                 %>
                 <tr>
-                    <td><%= asistencia.getFecha() %></td>
-                    <td><%= asistencia.getIdCurso() %></td>
-                    <td><%= asistencia.getEstado() %></td>
+                    <td><%= nota.getIdCurso() %></td>
+                    <td><%= nota.getInsumo1() %></td>
+                    <td><%= nota.getInsumo2() %></td>
+                    <td><%= nota.getInsumo3() %></td>
+                    <td><%= nota.getTotal() %></td>
                 </tr>
                 <%
                         }
                     }
-                    
                 %>
-                
             </tbody>
         </table>
 
