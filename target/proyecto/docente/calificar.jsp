@@ -179,7 +179,7 @@
                                    value="<%= (notaEstudiante != null) ? notaEstudiante.getInsumo3() : 0 %>" required>
                         </td>
                         <td>
-                            <%= (notaEstudiante != null) ? notaEstudiante.getTotal() : 0.00 %>
+                            <%= (notaEstudiante != null) ? String.format("%.2f", notaEstudiante.getTotal()) : 0.00 %>
                         </td>
                         <input type="hidden" name="estudiante_<%= estudiante.getIdUsuario() %>" value="<%= estudiante.getIdUsuario() %>">
                     </tr>
