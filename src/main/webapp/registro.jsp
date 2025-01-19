@@ -104,61 +104,70 @@
     </style>  
 </head>
 <body>
- <div class="form-container">
-    <h1>Registrar Usuario</h1>
-   
-    <form method="post">
-        <label>Nombre:</label><input type="text" name="nombre" required><br>
-        <label>Apellido:</label><input type="text" name="apellido" required><br>
-        <label>Email:</label><input type="email" name="email" required><br>
-        <label>Cedula:</label><input type="text" name="cedula" required><br>
-        <label>Telefono:</label><input type="text" name="telefono" required><br>
+    <div class="form-container">
+        <h1>Registrar Usuario</h1>
 
-        <label>Rol:</label><br>
-        <input type="radio" name="rol" value="1" required> Estudiante
-        <input type="radio" name="rol" value="2" required> Docente<br><br>
+        <form method="post">
+            <label>Nombre:</label><input type="text" name="nombre" required><br>
+            <label>Apellido:</label><input type="text" name="apellido" required><br>
+            <label>Email:</label><input type="email" name="email" required><br>
+            <label>Cedula:</label><input type="text" name="cedula" required><br>
+            <label>Telefono:</label><input type="text" name="telefono" required><br>
 
-        <button type="submit" name="accion" value="registrar">Registrar</button>
-    </form>
- <br>
-    <!-- Botón para regresar a la página de inicio -->
-    <a href="index.jsp">
-        <button type="button">Regresar al Inicio</button>
-    </a>
-    <%
-        // Inicializar conexión a la base de datos
-        Conexion conexionDB = new Conexion();
-        Connection conexion = conexionDB.conectar();
+            <label>Rol:</label><br>
+            <input type="radio" name="rol" value="1" required> Estudiante
+            <input type="radio" name="rol" value="2" required> Docente<br><br>
 
-        if (conexion != null) {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+            <button type="submit" name="accion" value="registrar">Registrar</button>
+        </form>
+        <br>
+        <!-- Botón para regresar a la página de inicio -->
+        <a href="index.jsp">
+            <button type="button">Regresar al Inicio</button>
+        </a>
 
-            // Procesar el formulario
-            String accion = request.getParameter("accion");
+        <%
+            // Inicializar conexión a la base de datos
+            Conexion conexionDB = new Conexion();
+            Connection conexion = conexionDB.conectar();
 
-            if ("registrar".equals(accion)) {
-                // Capturar datos del formulario
-                String nombre = request.getParameter("nombre");
-                String apellido = request.getParameter("apellido");
-                String email = request.getParameter("email");
-                String cedula = request.getParameter("cedula");
-                String telefono = request.getParameter("telefono");
-                int rol = Integer.parseInt(request.getParameter("rol"));
+            if (conexion != null) {
+                UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
 
-                // Crear usuario y registrar
-                Usuario nuevoUsuario = new Usuario(nombre, apellido, email, cedula, telefono, rol);
-                boolean registroExitoso = usuarioDAO.registrarUsuario(nuevoUsuario);
+                // Procesar el formulario
+                String accion = request.getParameter("accion");
 
-                if (registroExitoso) {
-                    out.println("<p style='color: green;'>Usuario registrado con exito: " + nuevoUsuario.getNombre() + "</p>");
-                } else {
-                    out.println("<p style='color: red;'>Error al registrar el usuario.</p>");
+                if ("registrar".equals(accion)) {
+                    // Capturar datos del formulario
+                    String nombre = request.getParameter("nombre");
+                    String apellido = request.getParameter("apellido");
+                    String email = request.getParameter("email");
+                    String cedula = request.getParameter("cedula");
+                    String telefono = request.getParameter("telefono");
+                    int rol = Integer.parseInt(request.getParameter("rol"));
+
+                    // Crear usuario usando el constructor vacío y setters
+                    Usuario nuevoUsuario = new Usuario();
+                    nuevoUsuario.setNombre(nombre);
+                    nuevoUsuario.setApellido(apellido);
+                    nuevoUsuario.setEmail(email);
+                    nuevoUsuario.setCedula(cedula);
+                    nuevoUsuario.setTelefono(telefono);
+                    nuevoUsuario.setIdRole(rol);
+
+                    // Registrar el usuario
+                    boolean registroExitoso = usuarioDAO.registrarUsuario(nuevoUsuario);
+
+                    if (registroExitoso) {
+                        out.println("<p style='color: green;'>Usuario registrado con exito: " + nuevoUsuario.getNombre() + "</p>");
+                    } else {
+                        out.println("<p style='color: red;'>Error al registrar el usuario.</p>");
+                    }
                 }
+            } else {
+                out.println("<p style='color: red;'>No se pudo conectar a la base de datos.</p>");
             }
-        } else {
-            out.println("<p style='color: red;'>No se pudo conectar a la base de datos.</p>");
-        }
-    %>
-        </div>
+        %>
+    </div>
 </body>
 </html>

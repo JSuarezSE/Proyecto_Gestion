@@ -9,10 +9,12 @@ public class Usuario {
     private String telefono;
     private int idRole; // Cambiar de "rolId" a "idRole" para coincidir con la tabla
 
-    // Constructor
+    // Constructor vacío
     public Usuario() {}
 
-    public Usuario(String nombre, String apellido, String email, String cedula, String telefono, int idRole) {
+    // Constructor con parámetros (incluyendo idUsuario)
+    public Usuario(int idUsuario, String nombre, String apellido, String email, String cedula, String telefono, int idRole) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -76,5 +78,18 @@ public class Usuario {
 
     public void setIdRole(int idRole) {
         this.idRole = idRole;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", idRole=" + idRole +
+                '}';
     }
 }

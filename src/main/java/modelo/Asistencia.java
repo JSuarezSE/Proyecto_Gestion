@@ -10,6 +10,7 @@ public class Asistencia {
     private String estado;  // Puede ser "Presente" o "Ausente"
 
     // Constructor
+
     public Asistencia(int idUsuario, int idCurso, Date fecha, String estado) {
         this.idUsuario = idUsuario;
         this.idCurso = idCurso;

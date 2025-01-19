@@ -105,27 +105,27 @@
     </form>
 </div>
 
-    <%
-        // Inicializar conexión a la base de datos
-        Conexion conexionDB = new Conexion();
-        Connection conexion = conexionDB.conectar();
+<%
+    // Inicializar conexión a la base de datos
+    Conexion conexionDB = new Conexion();
+    Connection conexion = conexionDB.conectar();
 
-        if (conexion != null) {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+    if (conexion != null) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
 
-            // Procesar la acción del formulario
-            String accion = request.getParameter("accion");
+        // Procesar la acción del formulario
+        String accion = request.getParameter("accion");
 
-            if ("login".equals(accion)) {
-                // Capturar datos del formulario
-                String email = request.getParameter("email");
-                String cedula = request.getParameter("cedula");
+        if ("login".equals(accion)) {
+            // Capturar datos del formulario
+            String email = request.getParameter("email");
+            String cedula = request.getParameter("cedula");
 
-                // Validar login
-                Usuario usuario = usuarioDAO.validarLogin(email, cedula);
+            // Validar login
+            Usuario usuario = usuarioDAO.validarLogin(email, cedula);
 
-                if (usuario != null) {
-                     // Guardar usuario en sesión
+            if (usuario != null) {
+                // Guardar usuario en sesión
                 session.setAttribute("usuario", usuario);
 
                 // Redirigir dependiendo del rol
@@ -134,15 +134,15 @@
                 } else if (usuario.getIdRole() == 2) { // Rol de docente
                     response.sendRedirect("docente/dashboard_docente.jsp");
                 } else {
-                    out.println("script>alert('Rol no reconocido.');</script>");
+                    out.println("<script>alert('Rol no reconocido.');</script>");
                 }
             } else {
-               out.println("<script>alert('Credenciales incorrectas. Inténtelo de nuevo.');</script>");
+                out.println("<script>alert('Credenciales incorrectas. Inténtelo de nuevo.');</script>");
             }
         }
-        } else {
-            out.println("<script>alert('No se pudo conectar a la base de datos.');</script>");
-        }
-    %>
+    } else {
+        out.println("<script>alert('No se pudo conectar a la base de datos.');</script>");
+    }
+%>
 </body>
 </html>
