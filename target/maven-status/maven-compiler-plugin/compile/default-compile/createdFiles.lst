@@ -2,4 +2,5 @@ modelo\Asistencia.class
 controlador\Conexion.class
 controlador\DocenteDAO.class
 controlador\UsuarioDAO.class
+modelo\Notas.class
 modelo\Usuario.class
