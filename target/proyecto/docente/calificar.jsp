@@ -1,21 +1,17 @@
-<%@ page import="controlador.Conexion" %> 
-<%@ page import="controlador.DocenteDAO" %> 
-<%@ page import="modelo.Usuario" %> 
-<%@ page import="java.sql.Connection" %> 
-<%@ page import="java.util.List" %> 
+<%@ page import="controlador.Conexion" %>
+<%@ page import="controlador.DocenteDAO" %>
+<%@ page import="modelo.Usuario" %>
+<%@ page import="modelo.Notas" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de Asistencia - Docente</title>
+    <title>Calificar Estudiantes - Docente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Incluyendo jQuery y jQuery UI para el Datepicker -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,8 +73,11 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        td input[type="radio"] {
-            margin-right: 10px;
+        td input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         footer {
             background-color: #004d99;
@@ -94,7 +93,7 @@
 <body>
 
     <header>
-        <h1>Gestion de Asistencia - Docente</h1>
+        <h1>Calificar Estudiantes - Docente</h1>
     </header>
 
     <div class="container">
@@ -115,16 +114,20 @@
             <button type="submit" class="btn">Volver al Dashboard</button>
         </form>
 
+        <h2>Calificar Estudiantes</h2>
+
         <%
             // Inicializar conexión a la base de datos
             Conexion conexionDB = new Conexion();
             Connection conexion = conexionDB.conectar();
             List<Usuario> estudiantes = null;
+            List<Notas> notasEstudiantes = null;
 
             if (conexion != null) {
                 DocenteDAO docenteDAO = new DocenteDAO(conexion);
                 int idCurso = 1; // Aquí debes poner el id del curso adecuado
                 estudiantes = docenteDAO.obtenerEstudiantesPorCurso(idCurso);
+                notasEstudiantes = docenteDAO.listarNotasPorCurso(idCurso); // Obtener las notas de los estudiantes
             } else {
                 out.println("<p>Error al conectar con la base de datos.</p>");
             }
@@ -132,25 +135,51 @@
             if (estudiantes != null && !estudiantes.isEmpty()) {
         %>
 
-        <form method="post" action="procesar_asistencia.jsp">
+        <form method="post" action="procesar_calificaciones.jsp">
             <table>
                 <thead>
                     <tr>
                         <th>Nombre del Estudiante</th>
-                        <th>Asistencia</th>
+                        <th>Insumo 1</th>
+                        <th>Insumo 2</th>
+                        <th>Insumo 3</th>
+                        <th>Total</th> <!-- Nueva columna para el total -->
                     </tr>
                 </thead>
                 <tbody>
                     <% 
                         // Mostrar los estudiantes en la tabla
                         for (Usuario estudiante : estudiantes) {
+                            Notas notaEstudiante = null;
+                            if (notasEstudiantes != null) {
+                                // Buscar la nota del estudiante actual
+                                for (Notas nota : notasEstudiantes) {
+                                    if (nota.getIdUsuario() == estudiante.getIdUsuario()) {
+                                        notaEstudiante = nota;
+                                        break;
+                                    }
+                                }
+                            }
                     %>
                     <tr>
                         <td><%= estudiante.getNombre() + " " + estudiante.getApellido() %></td>
                         <td>
-                            <label><input type="radio" name="estado_<%= estudiante.getIdUsuario() %>" value="Presente" required> Presente</label>
-                            <label><input type="radio" name="estado_<%= estudiante.getIdUsuario() %>" value="Ausente" required> Ausente</label>
-                            <label><input type="radio" name="estado_<%= estudiante.getIdUsuario() %>" value="Tarde" required> Tarde</label>
+                            <input type="number" name="insumo1_<%= estudiante.getIdUsuario() %>" 
+                                   step="0.01" min="0" max="100" 
+                                   value="<%= (notaEstudiante != null) ? notaEstudiante.getInsumo1() : 0 %>" required>
+                        </td>
+                        <td>
+                            <input type="number" name="insumo2_<%= estudiante.getIdUsuario() %>" 
+                                   step="0.01" min="0" max="100" 
+                                   value="<%= (notaEstudiante != null) ? notaEstudiante.getInsumo2() : 0 %>" required>
+                        </td>
+                        <td>
+                            <input type="number" name="insumo3_<%= estudiante.getIdUsuario() %>" 
+                                   step="0.01" min="0" max="100" 
+                                   value="<%= (notaEstudiante != null) ? notaEstudiante.getInsumo3() : 0 %>" required>
+                        </td>
+                        <td>
+                            <%= (notaEstudiante != null) ? String.format("%.2f", notaEstudiante.getTotal()) : 0.00 %>
                         </td>
                         <input type="hidden" name="estudiante_<%= estudiante.getIdUsuario() %>" value="<%= estudiante.getIdUsuario() %>">
                     </tr>
@@ -161,19 +190,7 @@
             </table>
 
             <div style="text-align: center; margin-top: 20px;">
-                <label for="fecha_asistencia">Fecha de Asistencia:</label>
-                <input type="text" id="fecha_asistencia" name="fecha_asistencia" required>
-                <script>
-                    $(document).ready(function() {
-                        // Inicializar el DatePicker
-                        $("#fecha_asistencia").datepicker({
-                            dateFormat: 'yy-mm-dd', // Formato de fecha: YYYY-MM-DD
-                            changeMonth: true,
-                            changeYear: true
-                        });
-                    });
-                </script>
-                <button type="submit" class="btn" name="accion" value="registrarAsistencia">Registrar Asistencia</button>
+                <button type="submit" class="btn" name="accion" value="registrarCalificaciones">Registrar Calificaciones</button>
             </div>
         </form>
 
@@ -183,6 +200,5 @@
             }
         %>
     </div>
-
 </body>
 </html>

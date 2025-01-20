@@ -115,6 +115,8 @@
             <button type="submit" class="btn">Volver al Dashboard</button>
         </form>
 
+        <h2>Registrar Asistencia</h2>
+
         <%
             // Inicializar conexión a la base de datos
             Conexion conexionDB = new Conexion();

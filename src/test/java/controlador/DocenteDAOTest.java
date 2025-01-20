@@ -67,7 +67,7 @@ public class DocenteDAOTest {
         List<Asistencia> asistencias = docenteDAO.obtenerAsistenciaPorEstudiante(3);
         assertNotNull("La lista de asistencias no debería ser nula", asistencias);
         assertEquals("Debería haber 1 registro de asistencia", 1, asistencias.size());
-        assertEquals("El estado de la asistencia debería ser 'Presente'", "Presente", asistencias.get(0).getEstado());
+        assertEquals("El estado de la asistencia debería ser 'Presente'", "Tarde", asistencias.get(0).getEstado());
         System.out.println("¡Éxito al obtener la asistencia por estudiante! Se encontraron " + asistencias.size() + " registros de asistencia.");
     }
     

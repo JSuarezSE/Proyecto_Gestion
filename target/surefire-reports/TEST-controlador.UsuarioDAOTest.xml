@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="controlador.UsuarioDAOTest" time="0.013" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="controlador.UsuarioDAOTest" time="0.014" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="18"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MX"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-18.0.1.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\ADMIN\AppData\Local\Temp\surefire1317011510837627621\surefirebooter52595162434639588.jar C:\Users\ADMIN\AppData\Local\Temp\surefire1317011510837627621 2025-01-19T18-17-34_670-jvmRun1 surefire2980058938116217889tmp surefire_011758017052507023172tmp"/>
+    <property name="sun.java.command" value="C:\Users\ADMIN\AppData\Local\Temp\surefire4210609415095499124\surefirebooter5051691216533448143.jar C:\Users\ADMIN\AppData\Local\Temp\surefire4210609415095499124 2025-01-19T19-38-00_830-jvmRun1 surefire17998674556163373043tmp surefire_01482689322806502196tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\ADMIN\Desktop\Josue\9-2\configuracion del software\Proyectos\proyecto\target\test-classes;C:\Users\ADMIN\Desktop\Josue\9-2\configuracion del software\Proyectos\proyecto\target\classes;C:\Users\ADMIN\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\ADMIN\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\ADMIN\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\ADMIN\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\ADMIN\AppData\Local\Temp\surefire1317011510837627621\surefirebooter52595162434639588.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ADMIN\AppData\Local\Temp\surefire4210609415095499124\surefirebooter5051691216533448143.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="18.0.1.1+2-6"/>
@@ -56,6 +56,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="62.0"/>
   </properties>
-  <testcase name="testValidarLogin" classname="controlador.UsuarioDAOTest" time="0.006"/>
-  <testcase name="testObtenerUsuarioPorId" classname="controlador.UsuarioDAOTest" time="0.005"/>
+  <testcase name="testValidarLogin" classname="controlador.UsuarioDAOTest" time="0.007"/>
+  <testcase name="testObtenerUsuarioPorId" classname="controlador.UsuarioDAOTest" time="0.007"/>
 </testsuite>
